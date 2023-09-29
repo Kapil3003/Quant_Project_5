@@ -41,26 +41,34 @@ st_autorefresh(interval= 60 * 1000, key="dataframerefresh")   # every 5 min
 
 # Create a drop down box where instrument and expiry can be selected.
 Instrument_name = 'BANKNIFTY'
-expiry_dates = dashboard_functions.get_expiry(Instrument_name) #[datetime.datetime.strptime(x, '%d-%b-%Y').date() for x in expiry_list(Instrument_name)]
 
-expiry =  expiry_dates[0]
-Option_df, ltp, crontime,maxpain,pcr = dashboard_functions.Calculate_OptionChain_fetch(Instrument_name,expiry.strftime('%d-%b-%Y'))
+# expiry_dates = dashboard_functions.get_expiry(Instrument_name) #[datetime.datetime.strptime(x, '%d-%b-%Y').date() for x in expiry_list(Instrument_name)]
 
+# expiry =  expiry_dates[0]
+# Option_df, ltp, crontime,maxpain,pcr = dashboard_functions.Calculate_OptionChain_fetch(Instrument_name,expiry.strftime('%d-%b-%Y'))
 
 
 ### Unfortunately NSE doesnt allow requrests from servers and Fetching/webscrapping expiry or option chain is not possible when hosted on the server
-### so creating static files for streamlit server -
-path_save = "./Data/Option_chain_"  + expiry.strftime('%Y_%m_%d')  + "_"+Instrument_name + ".csv"
-Option_df.to_csv(path_save,header= True)
+### using static files for streamlit server -
 
-# expiry = datetime.date(2023,10,4)
-# Option_df = pd.read_csv("./Data/Option_chain_2023_10_04_BANKNIFTY.csv")
-# Option_df = Option_df[["Call_COI","Call_OI","Call_IV","Call_LTP","Strike_Price","Put_LTP","Put_IV","Put_OI","Put_COI"]]
-# ltp = 44548.65
-# crontime = '29-Sep-2023 10:42:46'
-# maxpain = maxpain_fn(Option_df)
-# pcr = Option_df.Put_OI.sum()/Option_df.Call_OI.sum()
 
+# Get the list of all files and directories
+import os
+path = "./Data"
+dir_list = os.listdir(path)
+filename = [x for x in dir_list if x.startswith("G")][-1]
+
+Option_df = pd.read_csv("./Data/"+dir_list[-1])
+Option_df = Option_df[["Call_COI","Call_OI","Call_IV","Call_LTP","Strike_Price","Put_LTP","Put_IV","Put_OI","Put_COI"]]
+
+expiry = datetime.datetime.strptime(filename[7:17], '%Y_%m_%d').date()
+
+ltp = pd.read_csv("./Data/"+filename).ltp.iloc[-1]
+crontime = pd.read_csv("./Data/"+filename)["Unnamed: 0"].iloc[-1]
+crontime = datetime.datetime.strptime(crontime, '%Y-%m-%d %H:%M:%S').strftime('%d-%b-%Y %H:%M:%S')
+
+maxpain = dashboard_functions.maxpain_fn(Option_df)
+pcr = Option_df.Put_OI.sum()/Option_df.Call_OI.sum()
 
 
 
@@ -141,9 +149,9 @@ results_df = pd.concat([ Option_df_sum.to_frame().T , greeks_sum], axis=1)
 results_df.index = [Current_time] # Substitute it with crontime
 results_df['maxpain'] = maxpain
 
-# Append to Existing File
+# # Append to Existing File
 path_save = "./Data/Greeks_"  + expiry.strftime('%Y_%m_%d')  + "_"+Instrument_name + ".csv"
-results_df.to_csv(path_save, mode='a',header=not (path.exists(path_save)))
+# results_df.to_csv(path_save, mode='a',header=not (path.exists(path_save)))
 
 ############# Load All data ####################
 
@@ -236,4 +244,20 @@ with col_2:
 	st.subheader("Option Greeks")
 	st.dataframe(greeks_df, use_container_width=True,height=550)
 
+
+
+st.divider()
+
+"## Code"
+
+"For detail code refer my github repo :- "
+" 1. [Predictive Analysis of Stock Trajectories using Geometric Brownian Motion](https://github.com/Kapil3003/Quant_Project_1/blob/main/Project_1_GBM.ipynb)"
+
+" 2. [Comprehensive VaR Analysis: Methods Comparison, Backtesting, and Stress Testing](https://github.com/Kapil3003/Quant_Project_2/blob/main/Project_2_VaR_Analysis.ipynb)"
+
+" 3. [Robust Trading Strategy Development using Walk Forward Optimization](https://github.com/Kapil3003/Quant_Project_3/blob/main/Project_3_StrategyDevelopment.ipynb)"
+
+" 4. [Market Volatility Forecasting: An ExtensiveComparative Study](https://github.com/Kapil3003/Quant_Project_4/blob/main/Project_4_Volatility%20Forecasting.ipynb)"
+
+" 5. [Real-Time Options Chain Data Analysis Dashboard](https://github.com/Kapil3003/Quant_Project_5)"
 
