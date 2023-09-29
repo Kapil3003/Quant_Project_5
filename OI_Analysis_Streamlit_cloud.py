@@ -1,7 +1,7 @@
 ## https://discuss.streamlit.io/t/launching-streamlit-webapp-from-desktop-shortcut/26297
 ## pipreqs (to create requirement file needed for streamshare)
 ## cd to current folder 
-## streamlit run OI_Analysis_Streamlit.py
+## streamlit run OI_Analysis_Streamlit_cloud.py
 
 ########################## Initialization - Lib and Settings #####################
 
