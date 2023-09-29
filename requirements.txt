@@ -1,0 +1,8 @@
+nsepython==2.6
+numpy==1.23.5
+pandas==1.4.4
+plotly==5.9.0
+py_vollib_vectorized==0.1.1
+pytz==2023.3
+streamlit==1.25.0
+streamlit_autorefresh==0.0.1
