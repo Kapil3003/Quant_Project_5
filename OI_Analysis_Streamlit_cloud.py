@@ -57,12 +57,12 @@ import os
 path = "./Data"
 dir_list = os.listdir(path) 
 dir_list.sort()
-st.write(dir_list)
+# st.write(dir_list)
 filename = [x for x in dir_list if x.startswith("G")][-1]
 
 Option_df = pd.read_csv("./Data/"+dir_list[-1])
 
-st.dataframe(Option_df)
+# st.dataframe(Option_df)
 Option_df = Option_df[["Call_COI","Call_OI","Call_IV","Call_LTP","Strike_Price","Put_LTP","Put_IV","Put_OI","Put_COI"]]
 
 expiry = datetime.datetime.strptime(filename[7:17], '%Y_%m_%d').date()
