@@ -55,7 +55,8 @@ Instrument_name = 'BANKNIFTY'
 # Get the list of all files and directories
 import os
 path = "./Data"
-dir_list = os.listdir(path).sort()
+dir_list = os.listdir(path) 
+dir_list.sort()
 st.write(dir_list)
 filename = [x for x in dir_list if x.startswith("G")][-1]
 
