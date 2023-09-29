@@ -59,6 +59,7 @@ dir_list = os.listdir(path)
 filename = [x for x in dir_list if x.startswith("G")][-1]
 
 Option_df = pd.read_csv("./Data/"+dir_list[-1])
+print("./Data/"+dir_list[-1])
 st.dataframe(Option_df)
 Option_df = Option_df[["Call_COI","Call_OI","Call_IV","Call_LTP","Strike_Price","Put_LTP","Put_IV","Put_OI","Put_COI"]]
 
