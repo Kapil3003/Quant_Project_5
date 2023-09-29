@@ -1,3 +1,3 @@
 # Quant_Project_5
  
-[**Open Interest Analysis**![Screenshot](Image_1.PNG)]
+[Screenshot](Image_1.PNG)]
