@@ -168,7 +168,7 @@ df.rename(columns={'Unnamed: 0': 'Timestamp'}, inplace=True)
 # Get todays data
 Today = df.Timestamp.iloc[-1].date() #datetime.datetime.now().date()
 df = df[df['Timestamp'].dt.date == Today]
-# df
+df
 ############################ Prepare Graphs ############################
 
 Option_chain_df =Option_df[["Call_COI","Call_OI","Call_LTP","Strike_Price","Put_LTP","Put_OI","Put_COI"]].copy()

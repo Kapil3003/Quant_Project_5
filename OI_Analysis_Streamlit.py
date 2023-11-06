@@ -153,6 +153,7 @@ vega_chart  = dashboard_functions.multi_line_chart("Vega"	,df_greeks,"Timestamp"
 gamma_chart = dashboard_functions.multi_line_chart("Gamma"	,df_greeks,"Timestamp","c_gamma"	,"p_gamma")
 
 maxp_chart  = dashboard_functions.line_chart("MaxPain",df_greeks,"Timestamp","maxpain")
+
 OI_direction_chart  = dashboard_functions.line_chart("OI_direction",df_greeks,"Timestamp","oi_direction")
 
 ############################ Streamlit App UI ###########################
